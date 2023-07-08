@@ -1,25 +1,24 @@
 from collections import UserDict
 
-class Field: # родительским для всех полей, в нем потом реализуем логику общую для всех полей.
+class Field: 
     pass
 
-class Name: #обязательное поле с именем
+class Name: 
     def __init__(self, name):
         self.value = name
 
-class Phone:    # необязательное поле с телефоном и таких одна запись (Record) может содержать несколько.
+class Phone:    
     def __init__(self, number):
         self.number = number
 
-    def __str__(self) -> str:  # магический метод чтобы вернуть красивый str результат вместо сигнатуры
+    def __str__(self) -> str:  
         return f'phone: {self.number}'
 
     def __repr__(self) -> str:
         return str(self)
 
 
-class Record: # Record хранит список объектов Phone в отдельном атрибуте.
-#отвечает за логику добавления/удаления/редактирования необязательных полей и хранения обязательного поля Name
+class Record: 
     
     def __init__(self, name : Name, phone = None):
         self.name = name
@@ -42,8 +41,6 @@ class Record: # Record хранит список объектов Phone в от�
             if item.number == number:
                 self.phone_list.remove(item)
 
-    # def print(self):
-    #     print(self.name.value, *self.phone_list)
 
     def __str__(self) -> str:
         return f'{self.name.value} {self.phone_list}'
@@ -53,13 +50,9 @@ class Record: # Record хранит список объектов Phone в от�
 
 
 class AddressBook(UserDict):
-    # добавляет Record в self.data
     def add_record(self, record: Record):
-        # В качестве ключей используется значение Record.name.value.
         self.data[record.name.value] = record
-        pass
 
-    # -> return Record(name)
     def search_user(self, name_str: str):
         name = Name(name_str)
         if self.data.get(name.value):
@@ -105,6 +98,5 @@ def main():
         print(rec)
 
 
-###############################################
 if __name__ == "__main__":
     main()
