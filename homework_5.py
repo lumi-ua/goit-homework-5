@@ -120,7 +120,7 @@ def phone(*args):
     phone = ""
     record = address_book.search_user(name)
     if record:
-        return " ".join([phone.number for phone in record.phone_list])
+        return name + ": " + ", ".join([phone.number for phone in record.phone_list])
     return "ERROR empty"
 
 @input_error
